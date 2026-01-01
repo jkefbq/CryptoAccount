@@ -1,6 +1,6 @@
 package com.asettracker.tg.main.listener;
 
-import com.asettracker.tg.main.menu.main.MainMenu;
+import com.asettracker.tg.main.menu.main_menu.MainMenu;
 import com.asettracker.tg.main.service.GeneralButtonHandler;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;

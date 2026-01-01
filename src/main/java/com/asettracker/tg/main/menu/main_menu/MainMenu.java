@@ -1,10 +1,8 @@
-package com.asettracker.tg.main.menu.main;
+package com.asettracker.tg.main.menu.main_menu;
 
 import com.asettracker.tg.main.dto.MyTelegramClient;
-import com.asettracker.tg.main.menu.CanHandleButton;
 import com.asettracker.tg.main.menu.CanSendMenu;
 import com.asettracker.tg.main.menu.CanSortButtons;
-import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;

@@ -1,4 +1,4 @@
-package com.asettracker.tg.main.menu.main;
+package com.asettracker.tg.main.menu.main_menu;
 
 import com.asettracker.tg.main.dto.MyTelegramClient;
 import lombok.SneakyThrows;
