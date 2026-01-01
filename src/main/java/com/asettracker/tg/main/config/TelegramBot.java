@@ -1,6 +1,6 @@
-package com.asettracker.tg.myNew.config;
+package com.asettracker.tg.main.config;
 
-import com.asettracker.tg.myNew.listener.UpdateConsumer;
+import com.asettracker.tg.main.listener.UpdateConsumer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.longpolling.interfaces.LongPollingUpdateConsumer;

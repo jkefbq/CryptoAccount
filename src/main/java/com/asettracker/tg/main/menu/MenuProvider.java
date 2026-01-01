@@ -1,4 +1,4 @@
-package com.asettracker.tg.myNew.menu;
+package com.asettracker.tg.main.menu;
 
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardRow;

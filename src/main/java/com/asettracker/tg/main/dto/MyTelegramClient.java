@@ -1,4 +1,4 @@
-package com.asettracker.tg.myNew.dto;
+package com.asettracker.tg.main.dto;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

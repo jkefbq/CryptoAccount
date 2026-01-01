@@ -1,10 +1,9 @@
-package com.asettracker.tg.myNew.menu;
+package com.asettracker.tg.main.menu;
 
-import com.asettracker.tg.myNew.dto.MyTelegramClient;
+import com.asettracker.tg.main.dto.MyTelegramClient;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
@@ -77,43 +76,43 @@ public class MainMenu implements MenuProvider, ButtonHandler {
     }
 
     @Override
-    public boolean canHandleButton(CallbackQuery callbackButtonQuery) {
-        return getMenuButtons().containsKey(callbackButtonQuery.getData());
+    public boolean canHandleButton(Update update) {
+        return getMenuButtons().containsKey(update.getCallbackQuery().getData());
     }
 
     @Override
-    public void handleButton(CallbackQuery callbackQuery) {
-        switch (callbackQuery.getData()) {
-            case VIEW_BAG_BUTTON -> handleViewBagButton(callbackQuery);
-            case VIEW_PROFILE_BUTTON -> handleViewProfileButton(callbackQuery);
-            case RANDOM_NUMBER_BUTTON -> handleRandomNumberButton(callbackQuery);
+    public void handleButton(Update update) {
+        switch (update.getCallbackQuery().getData()) {
+            case VIEW_BAG_BUTTON -> handleViewBagButton(update);
+            case VIEW_PROFILE_BUTTON -> handleViewProfileButton(update);
+            case RANDOM_NUMBER_BUTTON -> handleRandomNumberButton(update);
             default -> throw new IllegalArgumentException(
                     "class '" + getClass() + "' can't handle this button");
         }
     }
 
     @SneakyThrows
-    private void handleRandomNumberButton(CallbackQuery callbackQuery) {
+    private void handleRandomNumberButton(Update update) {
         SendMessage sendMessage = SendMessage.builder()
-                .chatId(callbackQuery.getMessage().getChatId())
+                .chatId(update.getMessage().getChatId())
                 .text("ваше рандомное число: " + ThreadLocalRandom.current().nextInt(100000))
                 .build();
         telegramClient.execute(sendMessage);
     }
 
     @SneakyThrows
-    private void handleViewProfileButton(CallbackQuery callbackQuery) {
+    private void handleViewProfileButton(Update update) {
         SendMessage sendMessage = SendMessage.builder()
-                .chatId(callbackQuery.getMessage().getChatId())
+                .chatId(update.getMessage().getChatId())
                 .text("вы нажали мой профиль")
                 .build();
         telegramClient.execute(sendMessage);
     }
 
     @SneakyThrows
-    private void handleViewBagButton(CallbackQuery callbackQuery) {
+    private void handleViewBagButton(Update update) {
         SendMessage sendMessage = SendMessage.builder()
-                .chatId(callbackQuery.getMessage().getChatId())
+                .chatId(update.getMessage().getChatId())
                 .text("вы нажали мой портфель")
                 .build();
         telegramClient.execute(sendMessage);

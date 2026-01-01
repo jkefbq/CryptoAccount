@@ -1,7 +1,7 @@
-package com.asettracker.tg.myNew.listener;
+package com.asettracker.tg.main.listener;
 
-import com.asettracker.tg.myNew.menu.MainMenu;
-import com.asettracker.tg.myNew.service.GeneralButtonHandler;
+import com.asettracker.tg.main.menu.MainMenu;
+import com.asettracker.tg.main.service.GeneralButtonHandler;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
@@ -24,7 +24,7 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
         if (update.hasMessage() && update.getMessage().hasText()) {
             mainMenu.sendMainMenu(update);
         } else if (update.hasCallbackQuery()) {
-            buttonHandler.handleAnyButton(update.getCallbackQuery());
+            buttonHandler.handleAnyButton(update);
         }
     }
 
