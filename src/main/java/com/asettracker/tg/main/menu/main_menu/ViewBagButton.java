@@ -1,10 +1,10 @@
 package com.asettracker.tg.main.menu.main_menu;
 
 import com.asettracker.tg.main.dto.MyTelegramClient;
+import com.asettracker.tg.main.menu.bag_menu.BagMenu;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
@@ -13,10 +13,11 @@ public class ViewBagButton implements IMainMenuButton {
 
     private static final String VIEW_BAG_CALLBACK_DATA = "viewBag";
     private final TelegramClient telegramClient;
-    private int menuOrder;
+    private final BagMenu bagMenu;
 
-    public ViewBagButton(MyTelegramClient myTelegramClient) {
+    public ViewBagButton(MyTelegramClient myTelegramClient, BagMenu bagMenu) {
         this.telegramClient = myTelegramClient.getTelegramClient();
+        this.bagMenu = bagMenu;
     }
 
     @Override
@@ -28,17 +29,13 @@ public class ViewBagButton implements IMainMenuButton {
     }
 
     @Override
-    public boolean canHandleButton(CallbackQuery callbackQuery) {
-        return callbackQuery.getData().equals(VIEW_BAG_CALLBACK_DATA);
+    public boolean canHandleButton(Update update) {
+        return update.getCallbackQuery().getData().equals(VIEW_BAG_CALLBACK_DATA);
     }
 
     @SneakyThrows
     @Override
-    public void handleButton(CallbackQuery callbackQuery) {
-        SendMessage sendMessage = SendMessage.builder()
-                .chatId(callbackQuery.getFrom().getId())
-                .text("вы нажали мой портфель")
-                .build();
-        telegramClient.execute(sendMessage);
+    public void handleButton(Update update) {
+        bagMenu.sendMenu(update);
     }
 }

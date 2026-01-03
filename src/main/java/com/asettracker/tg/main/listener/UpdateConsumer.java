@@ -2,29 +2,28 @@ package com.asettracker.tg.main.listener;
 
 import com.asettracker.tg.main.menu.main_menu.MainMenu;
 import com.asettracker.tg.main.service.GeneralButtonHandler;
+import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
+@AllArgsConstructor
 public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
 
     private final GeneralButtonHandler buttonHandler;
     private final MainMenu mainMenu;
-
-    public UpdateConsumer(GeneralButtonHandler buttonHandler, MainMenu mainMenu) {
-        this.buttonHandler = buttonHandler;
-        this.mainMenu = mainMenu;
-    }
+    private final MessageHandler messageHandler;
 
     @SneakyThrows
     @Override
     public void consume(Update update) {
+
         if (update.hasMessage() && update.getMessage().hasText()) {
-            mainMenu.sendMenu(update);
+            messageHandler.handleAnyMessage(update);
         } else if (update.hasCallbackQuery()) {
-            buttonHandler.handleAnyButton(update.getCallbackQuery());
+            buttonHandler.handleAnyButton(update);
         }
     }
 }
