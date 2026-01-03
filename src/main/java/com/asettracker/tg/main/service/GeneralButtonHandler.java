@@ -1,21 +1,21 @@
 package com.asettracker.tg.main.service;
 
-import com.asettracker.tg.main.menu.CanHandleButton;
+import com.asettracker.tg.main.menu.IButton;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class GeneralButtonHandler {
-    private List<CanHandleButton> allHandlers;
+    private List<IButton> allHandlers;
 
-    public void handleAnyButton(CallbackQuery callbackQuery) {
+    public void handleAnyButton(Update update) {
         allHandlers.forEach(handler -> {
-            if (handler.canHandleButton(callbackQuery)) {
-                handler.handleButton(callbackQuery);
+            if (handler.canHandleButton(update)) {
+                handler.handleButton(update);
             }
         });
     }
