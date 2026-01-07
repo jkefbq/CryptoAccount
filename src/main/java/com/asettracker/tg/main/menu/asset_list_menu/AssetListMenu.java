@@ -1,8 +1,8 @@
 package com.asettracker.tg.main.menu.asset_list_menu;
 
-import com.asettracker.tg.main.config.ChatId;
+import com.asettracker.tg.main.service.ChatId;
 import com.asettracker.tg.main.database.service.UserDbService;
-import com.asettracker.tg.main.dto.UserStatus;
+import com.asettracker.tg.main.database.UserStatus;
 import com.asettracker.tg.main.menu.IButton;
 import com.asettracker.tg.main.menu.IMenu;
 import lombok.AllArgsConstructor;

@@ -1,11 +1,12 @@
 package com.asettracker.tg.main.database.entity;
 
-import com.asettracker.tg.main.config.ChatId;
-import com.asettracker.tg.main.dto.UserStatus;
+import com.asettracker.tg.main.service.ChatId;
+import com.asettracker.tg.main.database.UserStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,13 +18,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 @Getter
 @NoArgsConstructor
-public class UserEntity {
+public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
@@ -45,7 +47,7 @@ public class UserEntity {
     private UserStatus userStatus;
 
     @Setter
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bag_id")
     private BagEntity bag;
 

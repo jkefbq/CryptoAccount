@@ -1,4 +1,4 @@
-package com.asettracker.tg.main.dto;
+package com.asettracker.tg.main.database;
 
 public enum UserStatus {
     FREE,

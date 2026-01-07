@@ -1,11 +1,12 @@
 package com.asettracker.tg.main.menu.bag_menu;
 
-import com.asettracker.tg.main.config.ChatId;
 import com.asettracker.tg.main.database.entity.BagEntity;
 import com.asettracker.tg.main.database.service.BagDbService;
 import com.asettracker.tg.main.menu.IMenu;
+import com.asettracker.tg.main.service.ChatId;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
@@ -22,9 +23,11 @@ public class BagMenu implements IMenu {
 
     private static final String MENU_TEXT = getMenuText();
     private static final InputFile MENU_PHOTO = getMenuPhoto();
+    private static final String KEY_PREFIX = "bag:";
     private final TelegramClient telegramClient;
     private final List<IBagMenuButton> buttons;
     private final BagDbService bagDbService;
+    private final StringRedisTemplate redisTemplate;
 
     public static String getMenuText() {
         return """
@@ -45,7 +48,6 @@ public class BagMenu implements IMenu {
     @SneakyThrows
     @Override
     public void sendMenu(Update update) {
-        //todo кэширование
         CompletableFuture<BagEntity> bag = getBagAsync(update);
         SendPhoto sendPhoto = SendPhoto.builder()
                 .chatId(ChatId.get(update))

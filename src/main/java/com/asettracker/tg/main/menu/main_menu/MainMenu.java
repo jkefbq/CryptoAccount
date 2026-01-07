@@ -1,6 +1,6 @@
 package com.asettracker.tg.main.menu.main_menu;
 
-import com.asettracker.tg.main.config.ChatId;
+import com.asettracker.tg.main.service.ChatId;
 import com.asettracker.tg.main.menu.IMenu;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;

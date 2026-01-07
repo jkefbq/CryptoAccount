@@ -18,5 +18,4 @@ public class TgBotApplication {
     public TelegramClient telegramClient(@Value("${TG_KEY}") String tgToken) {
         return new OkHttpTelegramClient(tgToken);
     }
-
 }

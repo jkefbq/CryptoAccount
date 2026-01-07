@@ -1,6 +1,6 @@
 package com.asettracker.tg.main.menu.main_menu;
 
-import com.asettracker.tg.main.config.ChatId;
+import com.asettracker.tg.main.service.ChatId;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;

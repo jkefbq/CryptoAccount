@@ -1,10 +1,13 @@
 package com.asettracker.tg.main.database.service;
 
+import com.asettracker.tg.main.database.UserStatus;
 import com.asettracker.tg.main.database.entity.BagEntity;
 import com.asettracker.tg.main.database.entity.UserEntity;
 import com.asettracker.tg.main.database.repository.UserRepository;
-import com.asettracker.tg.main.dto.UserStatus;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,26 +16,36 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 @Transactional
+@EnableCaching
 public class UserDbService {
 
+    private static final String CACHE_NAMES = "users";
     private final UserRepository userRepo;
 
-    public UserEntity createUserAndBag(UserEntity user, BagEntity bag) {
+    public void createUserAndBag(UserEntity user, BagEntity bag) {
         user.setBag(bag);
-        return userRepo.save(user);
+        userRepo.save(user);
     }
 
     public boolean hasUserByChatId(Long chatId) {
         return userRepo.findByChatId(chatId).isPresent();
     }
 
+    @Cacheable(cacheNames = CACHE_NAMES, key = "#chatId")
     public Optional<UserEntity> findByChatId(Long chatId) {
         return userRepo.findByChatId(chatId);
     }
 
-    public void setStatus(Long chatId, UserStatus status) {
+    @CachePut(cacheNames = CACHE_NAMES, key = "#chatId")
+    public UserEntity setStatus(Long chatId, UserStatus status) {
         UserEntity user = userRepo.findByChatId(chatId).orElseThrow();
         user.setUserStatus(status);
-        userRepo.save(user);
+        return userRepo.save(user);
+    }
+
+    @CachePut(cacheNames = CACHE_NAMES, key = "#user.chatId")
+    public UserEntity setStatus(UserEntity user, UserStatus status) {
+        user.setUserStatus(status);
+        return userRepo.save(user);
     }
 }

@@ -1,4 +1,4 @@
-package com.asettracker.tg.main.config;
+package com.asettracker.tg.main.service;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;

@@ -1,10 +1,11 @@
 package com.asettracker.tg.main.database.entity;
 
-import com.asettracker.tg.main.config.ChatId;
+import com.asettracker.tg.main.service.ChatId;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -26,7 +28,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor
-public class BagEntity {
+public class BagEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +47,7 @@ public class BagEntity {
     @Column(name = "asset_count")
     private int assetCount;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "assets", joinColumns = @JoinColumn(name = "bag_id"))
     @MapKeyColumn(name = "asset_key")
     @Column(name = "asset_value")

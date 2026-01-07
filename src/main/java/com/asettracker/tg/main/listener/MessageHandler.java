@@ -1,15 +1,15 @@
 package com.asettracker.tg.main.listener;
 
-import com.asettracker.tg.main.config.ChatId;
 import com.asettracker.tg.main.database.entity.BagEntity;
 import com.asettracker.tg.main.database.entity.UserEntity;
 import com.asettracker.tg.main.database.service.BagDbService;
 import com.asettracker.tg.main.database.service.UserDbService;
-import com.asettracker.tg.main.dto.UserStatus;
+import com.asettracker.tg.main.database.UserStatus;
 import com.asettracker.tg.main.menu.asset_list_menu.UserChoose;
 import com.asettracker.tg.main.menu.bag_menu.BagMenu;
 import com.asettracker.tg.main.menu.enter_asset_count_menu.EnterAssetCountMenu;
 import com.asettracker.tg.main.menu.main_menu.MainMenu;
+import com.asettracker.tg.main.service.ChatId;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
@@ -40,7 +40,9 @@ public class MessageHandler {
             default -> {
                 if (isUserWaitingNumberStatus(update)) {
                     userChoose.setCoinCount(Double.parseDouble(text));
-                    enterAssetCountMenu.acceptCountAndCreateRecord(update);
+                    enterAssetCountMenu.addAssetAndSendSuccess(update);
+                    userDbService.findByChatId(ChatId.get(update))
+                            .ifPresent(user -> userDbService.setStatus(user, UserStatus.FREE));
                 } else {
                     handleUnknown(update);
                 }
@@ -79,7 +81,7 @@ public class MessageHandler {
         if (!userDbService.hasUserByChatId(ChatId.get(update))) {
             userDbService.createUserAndBag(
                     new UserEntity(update),
-                    bagDbService.saveBag(new BagEntity(update))
+                    bagDbService.createBag(new BagEntity(update))
             );
         }
     }

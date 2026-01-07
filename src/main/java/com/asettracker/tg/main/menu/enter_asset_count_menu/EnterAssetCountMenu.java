@@ -1,11 +1,10 @@
 package com.asettracker.tg.main.menu.enter_asset_count_menu;
 
-import com.asettracker.tg.main.config.ChatId;
 import com.asettracker.tg.main.database.service.BagDbService;
 import com.asettracker.tg.main.database.service.UserDbService;
-import com.asettracker.tg.main.dto.UserStatus;
 import com.asettracker.tg.main.menu.IMenu;
 import com.asettracker.tg.main.menu.asset_list_menu.UserChoose;
+import com.asettracker.tg.main.service.ChatId;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
@@ -33,15 +32,13 @@ public class EnterAssetCountMenu implements IMenu {
         telegramClient.execute(sendMessage);
     }
 
-    public void acceptCountAndCreateRecord(Update update) {
+    public void addAssetAndSendSuccess(Update update) {
         addAssetToBag(update);
         sendSuccess(update);
     }
 
     public void addAssetToBag(Update update) {
-        bagDbService.addAsset(userChoose.getCoinName(), userChoose.getCoinCount(), ChatId.get(update));
-        bagDbService.actualizeBagAssets(ChatId.get(update));
-        userDbService.findByChatId(ChatId.get(update)).ifPresent(u -> u.setUserStatus(UserStatus.FREE));
+        bagDbService.addAsset(userChoose, ChatId.get(update));
     }
 
     @SneakyThrows
