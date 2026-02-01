@@ -20,7 +20,6 @@ public class UserQuestionService {
 
     private final UserQuestionRepository userQuestionRepository;
     private final UserQuestionMapper mapper;
-    private final UserService userService;
 
     public UserQuestionEntity save(UserQuestionDto dto) {
         var entity = mapper.toEntity(dto);
@@ -34,14 +33,17 @@ public class UserQuestionService {
                 .toList();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public Optional<UserQuestionDto> findById(UUID id) {
         return userQuestionRepository.findById(id).map(mapper::toDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteById(UUID id) {
         userQuestionRepository.deleteById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserQuestionDto> findByUserId(UUID userId) {
         return userQuestionRepository.findByUserId(userId).stream()
                 .map(mapper::toDto)

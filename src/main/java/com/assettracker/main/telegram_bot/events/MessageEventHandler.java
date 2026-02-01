@@ -1,6 +1,7 @@
 package com.assettracker.main.telegram_bot.events;
 
 import com.assettracker.main.telegram_bot.database.dto.UserQuestionDto;
+import com.assettracker.main.telegram_bot.database.service.AssetService;
 import com.assettracker.main.telegram_bot.database.service.BagService;
 import com.assettracker.main.telegram_bot.database.service.DataInitializerService;
 import com.assettracker.main.telegram_bot.database.service.UserQuestionService;
@@ -13,7 +14,6 @@ import com.assettracker.main.telegram_bot.menu.my_assets_menu.MyAssetsMenu;
 import com.assettracker.main.telegram_bot.menu.my_profile_menu.MyProfileMenu;
 import com.assettracker.main.telegram_bot.menu.support_menu.SupportMenu;
 import com.assettracker.main.telegram_bot.menu.waiting_menu.WaitingMenu;
-import com.assettracker.main.telegram_bot.database.service.AssetService;
 import com.assettracker.main.telegram_bot.service.LastMessageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,15 +22,12 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Slf4j
 @Service
 @AllArgsConstructor
 public class MessageEventHandler {
 
-    private final ExecutorService es = Executors.newFixedThreadPool(10);
     private final UserService userService;
     private final UserQuestionService userQuestionService;
     private final MyAssetsMenu myAssetsMenu;
@@ -49,11 +46,9 @@ public class MessageEventHandler {
     public void handleStart(MessageEvent event) {
         var chatId = event.getUpdateDto().getChatId();
         mainMenu.sendMenu(chatId);
-        es.execute(() -> {
-            if (bagService.findByChatId(chatId).isEmpty()) {
-                initializer.initializeUserAndBag(event.getUpdateDto());
-            }
-        });
+        if (bagService.findByChatId(chatId).isEmpty()) {
+            initializer.initializeUserAndBag(event.getUpdateDto());
+        }
     }
 
     @EventListener(condition = "event.getMessage().name() == 'MENU'")

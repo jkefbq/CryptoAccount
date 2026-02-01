@@ -20,7 +20,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -55,7 +55,7 @@ public class ButtonHandlerTest {
         buttonHandler.handle(callbackQuery);
 
         verify(eventPublisher, times(1)).publishEvent(argumentCaptor.capture());
-        assertTrue(argumentCaptor.getValue() instanceof ButtonEvent);
+        assertInstanceOf(ButtonEvent.class, argumentCaptor.getValue());
         var event = (ButtonEvent) argumentCaptor.getValue();
         assertEquals(Button.MY_BAG, event.getButton());
         assertEquals(callbackQuery.getData(), event.getButton().getCallbackData());
@@ -70,7 +70,7 @@ public class ButtonHandlerTest {
         buttonHandler.handle(callbackQuery);
 
         verify(eventPublisher, times(1)).publishEvent(argumentCaptor.capture());
-        assertTrue(argumentCaptor.getValue() instanceof AssetButtonEvent);
+        assertInstanceOf(AssetButtonEvent.class, argumentCaptor.getValue());
         var event = (AssetButtonEvent) argumentCaptor.getValue();
         assertEquals(Coins.BITCOIN, event.getCoin());
         assertEquals(callbackQuery.getData(), event.getCoin().getIdsName());

@@ -83,8 +83,7 @@ public class ButtonEventHandler {
         enterAssetCountMenu.editMsgAndSendMenu(event.getChatId(), lastMessageId);
     }
 
-    @EventListener(condition = "event.getButton().name() == 'FORCE_CREATE_ASSET' || " +
-            "event.getButton().name() == 'CREATE_ASSET_AFTER_TRY_DELETE'")
+    @EventListener(condition = "event.getButton().name() == 'FORCE_CREATE_ASSET'")
     public void handleForceCreateAsset(ButtonEvent event) {
         UserCoin tmp = assetService.getTmpUserCoin(event.getChatId());
         tmp.setAssetDo(AssetDo.CREATE);
@@ -93,8 +92,17 @@ public class ButtonEventHandler {
         enterAssetCountMenu.editMsgAndSendMenu(event.getChatId(), lastMessageId);
     }
 
+    @EventListener(condition = "event.getButton().name() == 'CREATE_ASSET_AFTER_TRY_DELETE'")
+    public void handleCreateAssetAfterTryDelete(ButtonEvent event) {
+        UserCoin tmp = assetService.getTmpUserCoin(event.getChatId());
+        tmp.setAssetDo(AssetDo.CREATE);
+        assetService.saveTmpUserCoin(tmp);
+        Integer lastMessageId = lastMessageService.getLastMessage(event.getChatId());
+        enterAssetCountMenu.editMsgAndSendMenu(event.getChatId(), lastMessageId);
+    }
+
     @EventListener(condition = "event.getButton().name() == 'CANCEL_TO_MY_ASSETS'")
-    public void handleCancelForceUpdateAsset(ButtonEvent event) {
+    public void handleCancelToMyAssets(ButtonEvent event) {
         Integer lastMessageId = lastMessageService.getLastMessage(event.getChatId());
         myAssetsMenu.editMsgAndSendMenu(event.getChatId(), lastMessageId);
         assetService.deleteTmpUserCoin(event.getChatId());
@@ -145,6 +153,12 @@ public class ButtonEventHandler {
     @EventListener(condition = "event.getButton().name() == 'ASSETS' || " +
             "event.getButton().name() == 'CANCEL_TO_ASSETS'")
     public void handleAssets(ButtonEvent event) {
+        Integer lastMessageId = lastMessageService.getLastMessage(event.getChatId());
+        assetsMenu.editMsgAndSendMenu(event.getChatId(), lastMessageId);
+    }
+
+    @EventListener(condition = "event.getButton().name() == 'CANCEL_TO_ASSETS'")
+    public void handleCancelToAssets(ButtonEvent event) {
         Integer lastMessageId = lastMessageService.getLastMessage(event.getChatId());
         assetsMenu.editMsgAndSendMenu(event.getChatId(), lastMessageId);
     }

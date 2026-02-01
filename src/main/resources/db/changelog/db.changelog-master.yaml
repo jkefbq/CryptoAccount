@@ -1,7 +1,11 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/0.0.1/changeset-create-assets.yml
+      file: db/changelog/0.0.2/changeset-create-bags.sql
   - include:
-      file: db/changelog/0.0.1/changeset-create-bags.yml
+      file: db/changelog/0.0.2/changeset-create-assets.sql
   - include:
-      file: db/changelog/0.0.1/changeset-create-users.yml
+      file: db/changelog/0.0.2/changeset-create-users.sql
+  - include:
+      file: db/changelog/0.0.2/changeset-create-user_coins.sql
+  - include:
+      file: db/changelog/0.0.2/changeset-create-user_questions.sql

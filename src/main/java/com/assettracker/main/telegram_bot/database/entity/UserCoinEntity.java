@@ -18,7 +18,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Table(name = "user_coin")
+@Table(name = "user_coins")
 @Entity
 @NoArgsConstructor
 @Setter

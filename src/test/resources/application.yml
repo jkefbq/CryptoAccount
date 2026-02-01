@@ -25,3 +25,9 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
+
+# environment variables
+ADMIN_PASSWORD: test;
+GECKO_KEY: test;
+GEMINI_API_KEY: test;
+TG_KEY: test
