@@ -1,8 +1,6 @@
 server:
   port: ${SERVER_PORT:8083}
 spring:
-#  profiles:
-#    active: test
   datasource:
     url: test
     username: test
