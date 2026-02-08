@@ -6,9 +6,11 @@
 </details>
 
 ## ⚙Технологии
+### приложение
 - Spring Boot (Security, Web, Data, Cache)
 - PostgreSQL
 - Redis
+- Docker
 - MapStruct
 - Lombok
 - TelegramBots
@@ -17,15 +19,17 @@
 - Mockito
 - TestContainers
 - Liquibase
-
-## Архитектура
-
+- Awaitility
 
 ## Панель администратора
 ![Image alt](https://github.com/jkefbq/AssetTrackerTelegramBot/raw/main/src/main/resources/static/admin-support-panel.png)
 >Панель для обработки пользовательских вопросов или жалоб, ответ сразу отправляется нужному пользователю в чат. Реализован поиск всех вопросов какого-то юзера по его ID или по содержанию.
 
-✅ Сайт защищен через Spring Security не только на уровне URL, но и на уровне **методов**.  
-✅ Реализована защита от **CSRF**  
+✅ Сайт защищен через Spring Security не только на уровне URL, но и на уровне методов.  
+✅ Реализована защита от CSRF  
 
-##Бот
+## Телеграм Бот
+
+<img src="https://github.com/jkefbq/AssetTrackerTelegramBot/raw/main/src/main/resources/static/main-menu-tg-bot.jpg" width="50%">
+
+
