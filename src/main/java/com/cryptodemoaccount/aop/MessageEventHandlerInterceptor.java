@@ -17,8 +17,8 @@ public class MessageEventHandlerInterceptor {
 
     private final AssetService assetService;
 
-    @Before("execution(* com.assettracker.main.telegram_bot.events.MessageEventHandler.*(..)) && " +
-            "!execution(* com.assettracker.main.telegram_bot.events.MessageEventHandler.handleUnknown(..))")
+    @Before("execution(* com.cryptodemoaccount.events.MessageEventHandler.*(..)) && " +
+            "!execution(* com.cryptodemoaccount.events.MessageEventHandler.handleUnknown(..))")
     public void checkIsWaitingNumber(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
         Long chatId = null;
