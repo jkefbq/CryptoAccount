@@ -17,8 +17,8 @@ public class MessageEventHandlerInterceptor {
 
     private final UserCoinService userCoinService;
 
-    @Before("execution(* com.cryptodemoaccount.events.MessageEventHandler.*(..)) && " +
-            "!execution(* com.cryptodemoaccount.events.MessageEventHandler.handleUnknown(..))")
+    @Before("!execution(* com.cryptodemoaccount.events.MessageEventHandler.handleUnknown(..)) &&" +
+            "execution(* com.cryptodemoaccount.events.MessageEventHandler.*(..))")
     public void checkIsWaitingNumber(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
         Long chatId = null;

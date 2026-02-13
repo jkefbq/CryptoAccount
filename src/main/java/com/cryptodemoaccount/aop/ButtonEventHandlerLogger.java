@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ButtonEventHandlerLogger {
 
-    @Before("execution(* com.cryptodemoaccount.events.buttonhandlers.ButtonEventHandler.*(..))")
+    @Before("execution(* com.cryptodemoaccount.events.buttonhandlers..*(..))")
     public void logBeforeMethod(JoinPoint joinPoint) {
         log.info("call button handler method: [{}] with args={}", joinPoint.getSignature().getName(),
                 joinPoint.getArgs());
     }
 
-    @After("execution(* com.cryptodemoaccount.events.buttonhandlers.ButtonEventHandler.*(..))")
+    @After("execution(* com.cryptodemoaccount.events.buttonhandlers..*(..))")
     public void logAfterMethod(JoinPoint joinPoint) {
         log.info("end of execution button handler method: [{}] with args={}", joinPoint.getSignature().getName(),
                 joinPoint.getArgs());

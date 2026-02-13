@@ -2,7 +2,7 @@
 ![Java](https://img.shields.io/badge/Java-21-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.6-green)
 ![Docker](https://img.shields.io/badge/Docker-ready-blue)
-![Core Coverage](https://img.shields.io/badge/Service%20Coverage-88%25-brightgreen)
+![Service Coverage](https://img.shields.io/badge/Service%20Coverage-89%25-brightgreen)
 ![Controller Coverage](https://img.shields.io/badge/Controller%20Coverage-100%25-success)  
 Криптотрейдинг-бот с **AI**-рекомендациями, real-time мониторингом и управлением портфелем активов, системой поддержки через защищенную **админ-панель**. Реализован на отказоустойчивой **event-driven** архитектуре с **многопоточностью**, **кэшированием**, высоким **тестовым покрытием** и **Docker**-деплоем.
 <details>
@@ -123,7 +123,7 @@
     <tr>
       <td><b>Безопасность</b></td>
       <td>
-        Доступ к панели управления защищен <b>Spring Security</b>. Конфиденциальные данные (API-ключи, учетные данные БД) вынесены в переменные окружения с использованием <code>.env.example</code> для стандартизации.
+        Доступ к панели управления защищен <b>Spring Security</b>. Конфиденциальные данные (API-ключи, учетные данные БД) вынесены в переменные окружения с использованием <code>.env.example</code> (в корне) для стандартизации.
       </td>
     </tr>
     <tr>

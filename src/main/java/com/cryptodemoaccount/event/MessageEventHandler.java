@@ -81,7 +81,7 @@ public class MessageEventHandler {
         }
     }
 
-    private void saveQuestionAndSendSuccess(MessageEvent event, Long chatId) {
+    public void saveQuestionAndSendSuccess(MessageEvent event, Long chatId) {
         UUID userId = userService.findByChatId(chatId).orElseThrow().getId();
         userQuestionService.create(
                 new UserQuestionDto(event.getUpdateDto().getUserInput().orElseThrow(), userId)
@@ -89,13 +89,13 @@ public class MessageEventHandler {
         supportMenu.sendSuccess(chatId);
     }
 
-    private void addUserAssetAndSendSuccess(MessageEvent event, Long chatId) {
+    public void addUserAssetAndSendSuccess(MessageEvent event, Long chatId) {
         addAssetAndDeleteTmpUserCoin(event, chatId);
         enterAssetCountMenu.sendSuccess(chatId);
         myAssetsMenu.sendMenu(chatId);
     }
 
-    private void addAssetAndDeleteTmpUserCoin(MessageEvent event, Long chatId) {
+    public void addAssetAndDeleteTmpUserCoin(MessageEvent event, Long chatId) {
         var coinCount = BigDecimal.valueOf(
                 Double.parseDouble(event.getUpdateDto().getUserInput().orElseThrow().trim())
         );
